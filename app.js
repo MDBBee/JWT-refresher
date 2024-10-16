@@ -8,6 +8,7 @@ const app = express();
 const mainRouter = require("./routes/main");
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
+const authMiddleWare = require("./middleware/auth");
 
 // middleware
 app.use(express.static("./public"));

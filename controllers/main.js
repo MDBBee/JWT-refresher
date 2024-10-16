@@ -5,7 +5,7 @@ const login = async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password)
-    throw new customAPIError("Please provide your username and password!", 401);
+    throw new customAPIError("Please provide your username and password!", 400);
 
   const id = new Date().getDate();
   const token = jwt.sign({ username, id }, process.env.JWT_SECRET, {
@@ -15,7 +15,12 @@ const login = async (req, res) => {
 };
 
 const dashboard = async (req, res) => {
-  res.send("Dashboard");
+  const { id, username } = req.user;
+  const luckyNum = Math.floor(Math.random() * 101);
+  res.status(200).json({
+    msg: `Hello ${username} with customerID: ${id}`,
+    secret: `Here is your authorized data: ${luckyNum}`,
+  });
 };
 
 module.exports = { login, dashboard };
